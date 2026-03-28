@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+  /* LIGHT THEME — reversed from dark, with Pantone 333C teal accent */
+  --color-nyo-black: #FAFAFA;           /* was #0A0A0A — now white bg */
+  --color-nyo-orange: #3CDBC0;          /* Pantone 333C teal/mint */
+  --color-nyo-orange-hover: #2BC4AA;    /* darker teal for hover */
+  --color-nyo-orange-glow: rgba(60, 219, 192, 0.2);
+  --color-nyo-white: #0A0A0A;           /* was #F5F5F0 — now black text */
+  --color-nyo-gray-50: #111111;         /* inverted: darkest text shades */
+  --color-nyo-gray-100: #1A1A1A;        /* was light — now very dark */
+  --color-nyo-gray-200: #2D2D2D;        /* was light — now dark */
+  --color-nyo-gray-400: #6B6B6B;        /* mid gray stays similar */
+  --color-nyo-gray-600: #999999;        /* was dark — now lighter */
+  --color-nyo-gray-800: #E0E0E0;        /* was dark surface — now light border */
+  --color-nyo-gray-900: #F0F0F0;        /* was darkest — now near-white surface */
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Fluid typography scale */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-nyo-gray-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-nyo-gray-600);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-nyo-gray-400);
+}
+
+/* Teal glow animation for logo */
+@keyframes pulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px rgba(60, 219, 192, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(60, 219, 192, 0.4));
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(60, 219, 192, 0.25);
+  color: var(--color-nyo-white);
+}
+
+/* Focus ring utility */
+.focus-ring {
+  outline: 2px solid var(--color-nyo-orange);
+  outline-offset: 2px;
+}
+
+/* Prose styles for long-form content */
+.prose-nyo {
+  line-height: 1.8;
+  color: var(--color-nyo-gray-200);
+}
+
+.prose-nyo h1,
+.prose-nyo h2,
+.prose-nyo h3,
+.prose-nyo h4 {
+  color: var(--color-nyo-white);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.prose-nyo h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.prose-nyo h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-nyo-gray-800);
+}
+
+.prose-nyo h3 {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-nyo p {
+  margin-bottom: 1.25rem;
+}
+
+.prose-nyo blockquote {
+  border-left: 3px solid var(--color-nyo-orange);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--color-nyo-gray-400);
+}
+
+.prose-nyo a {
+  color: var(--color-nyo-orange);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-nyo a:hover {
+  color: var(--color-nyo-orange-hover);
+}
+
+.prose-nyo ul,
+.prose-nyo ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-nyo li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-nyo code {
+  font-family: var(--font-mono);
+  background: var(--color-nyo-gray-800);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.prose-nyo table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.prose-nyo th,
+.prose-nyo td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-nyo-gray-800);
+  text-align: left;
+}
+
+.prose-nyo th {
+  background: var(--color-nyo-gray-900);
+  font-weight: 600;
+  color: var(--color-nyo-white);
+}
