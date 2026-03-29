@@ -2,133 +2,94 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useEffect, useRef, useCallback } from "react";
 
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const driftRef = useRef(0);          // autonomous drift position (seconds)
-  const rafRef = useRef<number>(0);
-
-  // Blend scroll-scrub + slow autonomous drift
-  const tick = useCallback(() => {
-    const video = videoRef.current;
-    const section = sectionRef.current;
-    if (!video || !section || !video.duration) {
-      rafRef.current = requestAnimationFrame(tick);
-      return;
-    }
-
-    const duration = video.duration;
-    const viewH = window.innerHeight;
-    const rect = section.getBoundingClientRect();
-
-    // Hero visibility: 0 at top, 1 when fully scrolled past
-    const scrollProgress = Math.max(0, Math.min(1, -rect.top / viewH));
-
-    // Autonomous drift: crawl at 0.15x real-time, always looping
-    driftRef.current = (driftRef.current + 0.0025) % duration;
-
-    // Scroll scrub: map scroll progress → full video duration
-    const scrollTime = scrollProgress * duration;
-
-    // Blend: mostly drift when at top, mostly scroll-driven when scrolling
-    const blendedTime = (driftRef.current + scrollTime) % duration;
-
-    video.currentTime = blendedTime;
-
-    rafRef.current = requestAnimationFrame(tick);
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Pause native playback — we control currentTime manually
-    const handleCanPlay = () => {
-      video.pause();
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    video.addEventListener("canplay", handleCanPlay);
-    // If already ready
-    if (video.readyState >= 3) {
-      video.pause();
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    return () => {
-      video.removeEventListener("canplay", handleCanPlay);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, [tick]);
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6"
-    >
-      {/* Video background */}
-      <div className="absolute inset-0">
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          loop
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/images/hero-bg.mp4"
-        />
-        {/* Dark overlay for text legibility */}
-        <div className="absolute inset-0 bg-black/45" />
-        {/* Gradient fade at bottom for transition to next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-nyo-black to-transparent" />
-      </div>
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-nyo-black via-nyo-black to-nyo-gray-900" />
+
+      {/* Subtle radial glow behind logo area */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-nyo-orange/[0.03] blur-3xl pointer-events-none" />
+
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,0,144,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,144,0.12) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
 
       <div className="relative z-10 text-center max-w-5xl mx-auto">
-        {/* Status badge */}
+        {/* NYO Logo text */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
           className="mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-nyo-gray-800/60 bg-nyo-gray-900/40 backdrop-blur-sm mb-8">
             <span className="w-2 h-2 rounded-full bg-nyo-orange animate-pulse" />
-            <span className="text-xs font-medium text-white/70 tracking-wider uppercase">
+            <span className="text-xs font-medium text-nyo-gray-400 tracking-wider uppercase">
               Now in development
             </span>
           </div>
         </motion.div>
 
-        {/* Main headline — clean white for video bg */}
+        {/* Main headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.2,
-            ease: [0.25, 0.4, 0.25, 1],
-          }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-[-0.05em] leading-[0.95] text-white"
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-[-0.05em] leading-[0.95]"
         >
-          <span className="block">Thinking requires</span>
           <span className="block">
-            a{" "}
-            <span className="relative">
-              mind
-              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full bg-nyo-orange" />
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(90deg, #2563EB 0%, #7C5CFC 50%, #C74BE0 100%)",
+              }}
+            >
+              Thinking requires
             </span>
-            .
           </span>
-          <span className="block mt-2">Understanding requires</span>
           <span className="block">
-            a{" "}
-            <span className="relative">
-              body
-              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full bg-nyo-orange" />
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #B04CDA 0%, #B04CDA 100%)" }}>a{" "}</span>
+            <span
+              className="bg-clip-text text-transparent relative"
+              style={{
+                backgroundImage: "linear-gradient(90deg, #D93BA8 0%, #FF0090 100%)",
+              }}
+            >
+              mind
+              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #D93BA8, #FF0090)" }} />
             </span>
-            .
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #FF0090, #FF0090)" }}>.</span>
+          </span>
+          <span className="block mt-2">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(90deg, #FF0090 0%, #E8364F 50%, #D4542C 100%)",
+              }}
+            >
+              Understanding requires
+            </span>
+          </span>
+          <span className="block">
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #D4542C, #D4542C)" }}>a{" "}</span>
+            <span
+              className="bg-clip-text text-transparent relative"
+              style={{
+                backgroundImage: "linear-gradient(90deg, #D4542C 0%, #E87C1A 50%, #F0A000 100%)",
+              }}
+            >
+              body
+              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #E87C1A, #F0A000)" }} />
+            </span>
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #F0A000, #F0A000)" }}>.</span>
           </span>
         </motion.h1>
 
@@ -136,16 +97,12 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.5,
-            ease: [0.25, 0.4, 0.25, 1],
-          }}
-          className="mt-10 text-lg sm:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed"
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+          className="mt-10 text-lg sm:text-xl text-nyo-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
-          <span className="text-white font-semibold">PAX:Luma</span> &mdash;
-          Embodied synthetic intelligence by{" "}
-          <span className="text-white font-semibold">NYO</span>, an Ichinyo
+          <span className="text-nyo-white font-semibold">PAX:Luma</span> &mdash; Embodied
+          synthetic intelligence by{" "}
+          <span className="text-nyo-white font-semibold">NYO</span>, an Ichinyo
           Corporation brand.
         </motion.p>
 
@@ -153,22 +110,18 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.7,
-            ease: [0.25, 0.4, 0.25, 1],
-          }}
+          transition={{ duration: 0.8, delay: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
           className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a
             href="#waitlist"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-nyo-orange text-white font-semibold text-lg hover:bg-nyo-orange-hover active:scale-[0.98] transition-all duration-200 shadow-lg shadow-nyo-orange/30"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-nyo-orange text-white font-semibold text-lg hover:bg-nyo-orange-hover active:scale-[0.98] transition-all duration-200 shadow-lg shadow-nyo-orange/20"
           >
             Join the Waitlist
           </a>
           <a
             href="/archai"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white/10 backdrop-blur-sm text-white font-medium text-lg border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-200"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-transparent text-nyo-gray-200 font-medium text-lg border border-nyo-gray-600 hover:border-nyo-gray-400 hover:text-nyo-white transition-all duration-200"
           >
             Read Archai
           </a>
@@ -185,7 +138,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2 text-white/40"
+          className="flex flex-col items-center gap-2 text-nyo-gray-600"
         >
           <span className="text-xs tracking-widest uppercase">Scroll</span>
           <ChevronDown size={20} />
