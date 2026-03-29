@@ -29,9 +29,9 @@ export default function Vision() {
             <svg viewBox="0 0 120 40" className="w-full">
               <defs>
                 <linearGradient id="loopGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#3CDBC0" stopOpacity="0.6" />
-                  <stop offset="50%" stopColor="#3CDBC0" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#3CDBC0" stopOpacity="0.6" />
+                  <stop offset="0%" stopColor="#FF0090" stopOpacity="0.6" />
+                  <stop offset="50%" stopColor="#FF0090" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#FF0090" stopOpacity="0.6" />
                 </linearGradient>
               </defs>
               <path
@@ -49,8 +49,8 @@ export default function Vision() {
                 strokeDasharray="6 4"
               />
               {/* Arrows */}
-              <polygon points="108,17 115,20 108,23" fill="#3CDBC0" />
-              <polygon points="12,23 5,20 12,17" fill="#3CDBC0" />
+              <polygon points="108,17 115,20 108,23" fill="#FF0090" />
+              <polygon points="12,23 5,20 12,17" fill="#FF0090" />
             </svg>
           </div>
 

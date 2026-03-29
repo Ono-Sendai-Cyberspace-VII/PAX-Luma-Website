@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  /* LIGHT THEME — reversed from dark, with Pantone 333C teal accent */
-  --color-nyo-black: #FAFAFA;           /* was #0A0A0A — now white bg */
-  --color-nyo-orange: #3CDBC0;          /* Pantone 333C teal/mint */
-  --color-nyo-orange-hover: #2BC4AA;    /* darker teal for hover */
-  --color-nyo-orange-glow: rgba(60, 219, 192, 0.2);
+  /* LIGHT THEME — light gray bg, dark text, hot pink accent */
+  --color-nyo-black: #f4f6f5;           /* principal background */
+  --color-nyo-orange: #FF0090;          /* hot pink accent */
+  --color-nyo-orange-hover: #D90078;    /* darker pink for hover */
+  --color-nyo-orange-glow: rgba(255, 0, 144, 0.2);
   --color-nyo-white: #0A0A0A;           /* was #F5F5F0 — now black text */
   --color-nyo-gray-50: #111111;         /* inverted: darkest text shades */
   --color-nyo-gray-100: #1A1A1A;        /* was light — now very dark */
@@ -60,13 +60,13 @@ body {
   background: var(--color-nyo-gray-400);
 }
 
-/* Teal glow animation for logo */
+/* Pink glow animation for logo */
 @keyframes pulseGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 0px rgba(60, 219, 192, 0));
+    filter: drop-shadow(0 0 0px rgba(255, 0, 144, 0));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(60, 219, 192, 0.4));
+    filter: drop-shadow(0 0 20px rgba(255, 0, 144, 0.4));
   }
 }
 
@@ -76,7 +76,7 @@ body {
 
 /* Selection color */
 ::selection {
-  background-color: rgba(60, 219, 192, 0.25);
+  background-color: rgba(255, 0, 144, 0.25);
   color: var(--color-nyo-white);
 }
 
