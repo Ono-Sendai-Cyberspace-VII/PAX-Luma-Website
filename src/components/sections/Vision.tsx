@@ -14,8 +14,10 @@ export default function Vision() {
           <p className="text-center text-sm font-medium text-nyo-orange tracking-widest uppercase mb-4">
             The Architecture
           </p>
-          <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-nyo-white mb-6">
-            Two poles. One loop.
+          <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-6">
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #0A0A0A 0%, #4A4A4A 50%, #FF0090 100%)" }}>
+              Two poles. One loop.
+            </span>
           </h2>
           <p className="text-center text-lg text-nyo-gray-400 max-w-2xl mx-auto mb-20">
             Intelligence emerges not from mind alone, nor from body alone, but from their

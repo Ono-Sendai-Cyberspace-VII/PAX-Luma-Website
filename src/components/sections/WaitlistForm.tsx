@@ -68,8 +68,10 @@ export default function WaitlistForm() {
                 Early Access
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-nyo-white mb-4">
-              Join the Waitlist
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-4">
+              <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #0A0A0A 0%, #FF0090 60%, #FF6BB5 100%)" }}>
+                Join the Waitlist
+              </span>
             </h2>
             <p className="text-lg text-nyo-gray-400 max-w-xl mx-auto">
               Be among the first to experience PAX:Luma&apos;s personal assistant

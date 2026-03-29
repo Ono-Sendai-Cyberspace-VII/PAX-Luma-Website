@@ -45,19 +45,47 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-[-0.05em] leading-[0.95]"
         >
-          <span className="block text-nyo-white">Thinking requires</span>
+          <span className="block">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #0A0A0A 0%, #3A3A3A 40%, #FF0090 100%)",
+              }}
+            >
+              Thinking requires
+            </span>
+          </span>
           <span className="block text-nyo-white">a{" "}
-            <span className="text-nyo-orange relative">
+            <span
+              className="bg-clip-text text-transparent relative"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #FF0090 0%, #FF4DA6 40%, #D90078 100%)",
+              }}
+            >
               mind
-              <span className="absolute -bottom-2 left-0 w-full h-1 bg-nyo-orange/30 rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #FF0090, #FF4DA6)" }} />
             </span>
             .
           </span>
-          <span className="block mt-2 text-nyo-gray-400">Understanding requires</span>
+          <span className="block mt-2">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #6B6B6B 0%, #999999 30%, #FF0090 100%)",
+              }}
+            >
+              Understanding requires
+            </span>
+          </span>
           <span className="block text-nyo-gray-400">a{" "}
-            <span className="text-nyo-orange relative">
+            <span
+              className="bg-clip-text text-transparent relative"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #D90078 0%, #FF0090 50%, #FF6BB5 100%)",
+              }}
+            >
               body
-              <span className="absolute -bottom-2 left-0 w-full h-1 bg-nyo-orange/30 rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #D90078, #FF0090)" }} />
             </span>
             .
           </span>

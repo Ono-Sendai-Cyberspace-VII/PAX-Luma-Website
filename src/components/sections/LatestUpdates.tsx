@@ -43,8 +43,10 @@ export default function LatestUpdates() {
               <p className="text-sm font-medium text-nyo-orange tracking-widest uppercase mb-3">
                 Kata
               </p>
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-nyo-white">
-                Latest Updates
+              <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight">
+                <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #0A0A0A 0%, #3A3A3A 50%, #FF0090 100%)" }}>
+                  Latest Updates
+                </span>
               </h2>
             </div>
             <Link
