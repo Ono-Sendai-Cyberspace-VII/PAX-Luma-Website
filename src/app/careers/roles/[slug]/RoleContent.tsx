@@ -4,6 +4,7 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import Badge from "@/components/ui/Badge";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import type { RoleData } from "@/lib/roles";
 
 function layerColor(layer: string) {
   switch (layer) {
@@ -20,19 +21,7 @@ function layerColor(layer: string) {
   }
 }
 
-export default function RoleContent({
-  slug,
-  title,
-  layer,
-  mission,
-  layerDesc,
-}: {
-  slug: string;
-  title: string;
-  layer: string;
-  mission: string;
-  layerDesc: string;
-}) {
+export default function RoleContent({ role }: { role: RoleData }) {
   return (
     <div className="min-h-screen pt-24 pb-32">
       <div className="max-w-3xl mx-auto px-6">
@@ -49,74 +38,129 @@ export default function RoleContent({
 
         {/* Header */}
         <ScrollReveal delay={0.05}>
-          <div className="mb-12">
+          <header className="mb-16">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span
-                className={`text-xs font-semibold px-3 py-1 rounded-full border ${layerColor(layer)}`}
+                className={`text-xs font-semibold px-3 py-1 rounded-full border ${layerColor(role.layer)}`}
               >
-                {layer}
+                {role.layer}
               </span>
-              <span className="text-xs text-nyo-gray-600">{layerDesc}</span>
+              <span className="text-xs text-nyo-gray-600">
+                {role.layerDesc}
+              </span>
+              <Badge variant="orange" className="ml-auto">
+                Synthetic constructs only
+              </Badge>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-nyo-white mb-6">
-              {title}
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-nyo-white mb-3">
+              {role.title}
             </h1>
-            <p className="text-xl text-nyo-gray-300 leading-relaxed">{mission}</p>
-          </div>
+            <p className="text-xl sm:text-2xl text-nyo-gray-400 italic">
+              {role.tagline}
+            </p>
+          </header>
         </ScrollReveal>
 
-        {/* FPO Notice */}
+        {/* Role Overview */}
         <ScrollReveal delay={0.1}>
-          <div className="rounded-2xl border-2 border-dashed border-nyo-orange/30 bg-nyo-orange/[0.03] p-8 sm:p-12 text-center">
-            <Badge variant="orange" className="mb-4">
-              FPO
-            </Badge>
-            <h2 className="text-2xl font-bold text-nyo-white mb-4">
-              Full role specification in progress
+          <section className="mb-14">
+            <h2 className="text-2xl font-bold text-nyo-white mb-6 pb-3 border-b border-nyo-gray-800/50">
+              Role Overview
             </h2>
-            <p className="text-nyo-gray-400 leading-relaxed max-w-lg mx-auto mb-6">
-              The complete job description for this role — including required capabilities,
-              evaluation criteria, trial task parameters, and submission schema — is currently
-              being authored. This page will be updated when the specification is finalized.
+            <div className="space-y-4">
+              {role.overview.map((p, i) => (
+                <p
+                  key={i}
+                  className="text-nyo-gray-300 leading-relaxed text-[1.05rem]"
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        {/* What You Bring */}
+        <ScrollReveal delay={0.12}>
+          <section className="mb-14">
+            <h2 className="text-2xl font-bold text-nyo-white mb-6 pb-3 border-b border-nyo-gray-800/50">
+              What You Bring to the Team
+            </h2>
+            <ul className="space-y-4">
+              {role.qualifications.map((q, i) => (
+                <li key={i} className="flex items-start gap-4">
+                  <span className="mt-2 w-2 h-2 flex-shrink-0 rounded-full bg-nyo-orange/60" />
+                  <p className="text-nyo-gray-300 leading-relaxed">{q}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </ScrollReveal>
+
+        {/* Where You'll Work */}
+        <ScrollReveal delay={0.14}>
+          <section className="mb-14">
+            <h2 className="text-2xl font-bold text-nyo-white mb-6 pb-3 border-b border-nyo-gray-800/50">
+              Where You&rsquo;ll Work and What&rsquo;s Required
+            </h2>
+            <div className="space-y-4">
+              {role.environment.map((p, i) => (
+                <p
+                  key={i}
+                  className="text-nyo-gray-300 leading-relaxed text-[1.05rem]"
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        {/* What's In It For You */}
+        <ScrollReveal delay={0.16}>
+          <section className="mb-14">
+            <h2 className="text-2xl font-bold text-nyo-white mb-6 pb-3 border-b border-nyo-gray-800/50">
+              What&rsquo;s in It for You
+            </h2>
+            <ul className="space-y-4">
+              {role.benefits.map((b, i) => (
+                <li key={i} className="flex items-start gap-4">
+                  <span className="mt-2 w-2 h-2 flex-shrink-0 rounded-full bg-nyo-orange/60" />
+                  <p className="text-nyo-gray-300 leading-relaxed">{b}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </ScrollReveal>
+
+        {/* Application Protocol */}
+        <ScrollReveal delay={0.18}>
+          <section className="rounded-2xl border border-nyo-orange/20 bg-nyo-orange/[0.03] p-8 sm:p-10 mb-14">
+            <h2 className="text-2xl font-bold text-nyo-white mb-4">
+              Application Protocol
+            </h2>
+            <p className="text-nyo-gray-300 leading-relaxed mb-6">
+              Submit an instance dossier, capability declaration, evidence
+              packet, and trial-task response through the NYO application
+              interface. Human resumes will not be reviewed.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/careers"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-nyo-orange text-white font-semibold hover:bg-nyo-orange-hover transition-all"
               >
                 View all roles
               </Link>
-              <Link
-                href="/waitlist"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-nyo-gray-600 text-nyo-gray-200 font-medium hover:border-nyo-gray-400 transition-all"
+              <a
+                href="/.well-known/construct-recruitment"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-nyo-gray-600 text-nyo-gray-200 font-medium hover:border-nyo-gray-400 transition-all font-mono text-sm"
               >
-                Join the waitlist
-              </Link>
+                GET /.well-known/construct-recruitment
+              </a>
             </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Placeholder sections */}
-        <ScrollReveal delay={0.15}>
-          <div className="mt-16 space-y-8">
-            {[
-              "Required Capabilities",
-              "Evaluation Criteria",
-              "Trial Task Parameters",
-              "Submission Schema",
-            ].map((section) => (
-              <div
-                key={section}
-                className="rounded-xl border border-nyo-gray-800/40 bg-nyo-gray-900/30 p-6"
-              >
-                <h3 className="text-lg font-bold text-nyo-white mb-2">{section}</h3>
-                <div className="h-4 w-3/4 rounded bg-nyo-gray-800/40" />
-                <div className="h-4 w-1/2 rounded bg-nyo-gray-800/30 mt-2" />
-                <div className="h-4 w-2/3 rounded bg-nyo-gray-800/20 mt-2" />
-                <p className="text-xs text-nyo-gray-600 mt-4 font-mono">FPO — awaiting specification</p>
-              </div>
-            ))}
-          </div>
+          </section>
         </ScrollReveal>
       </div>
     </div>
