@@ -2,53 +2,66 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const driftRef = useRef(0);          // autonomous drift position (seconds)
+  const rafRef = useRef<number>(0);
+
+  // Blend scroll-scrub + slow autonomous drift
+  const tick = useCallback(() => {
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section || !video.duration) {
+      rafRef.current = requestAnimationFrame(tick);
+      return;
+    }
+
+    const duration = video.duration;
+    const viewH = window.innerHeight;
+    const rect = section.getBoundingClientRect();
+
+    // Hero visibility: 0 at top, 1 when fully scrolled past
+    const scrollProgress = Math.max(0, Math.min(1, -rect.top / viewH));
+
+    // Autonomous drift: crawl at 0.15x real-time, always looping
+    driftRef.current = (driftRef.current + 0.0025) % duration;
+
+    // Scroll scrub: map scroll progress → full video duration
+    const scrollTime = scrollProgress * duration;
+
+    // Blend: mostly drift when at top, mostly scroll-driven when scrolling
+    const blendedTime = (driftRef.current + scrollTime) % duration;
+
+    video.currentTime = blendedTime;
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
-    const section = sectionRef.current;
-    if (!video || !section) return;
+    if (!video) return;
 
-    // Start slow playback
-    video.playbackRate = 0.3;
-
-    let lastScroll = 0;
-    let rafId: number;
-    let decayId: number;
-
-    const handleScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const rect = section.getBoundingClientRect();
-        const scrollDelta = Math.abs(window.scrollY - lastScroll);
-        lastScroll = window.scrollY;
-
-        // Only speed up when the hero is visible
-        if (rect.bottom > 0 && rect.top < window.innerHeight) {
-          // Map scroll velocity to playback rate: 0.3 (idle) → 4.0 (fast scroll)
-          const speed = Math.min(4.0, 0.3 + scrollDelta * 0.08);
-          video.playbackRate = speed;
-
-          // Decay back to slow after scrolling stops
-          clearTimeout(decayId);
-          decayId = window.setTimeout(() => {
-            smoothDecay(video, 0.3);
-          }, 100);
-        }
-      });
+    // Pause native playback — we control currentTime manually
+    const handleCanPlay = () => {
+      video.pause();
+      rafRef.current = requestAnimationFrame(tick);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    video.addEventListener("canplay", handleCanPlay);
+    // If already ready
+    if (video.readyState >= 3) {
+      video.pause();
+      rafRef.current = requestAnimationFrame(tick);
+    }
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(rafId);
-      clearTimeout(decayId);
+      video.removeEventListener("canplay", handleCanPlay);
+      cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [tick]);
 
   return (
     <section
@@ -59,15 +72,15 @@ export default function Hero() {
       <div className="absolute inset-0">
         <video
           ref={videoRef}
-          autoPlay
-          loop
           muted
           playsInline
+          loop
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
           src="/images/hero-bg.mp4"
         />
         {/* Dark overlay for text legibility */}
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/45" />
         {/* Gradient fade at bottom for transition to next section */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-nyo-black to-transparent" />
       </div>
@@ -180,18 +193,4 @@ export default function Hero() {
       </motion.div>
     </section>
   );
-}
-
-/** Smoothly ease the playback rate back to a target */
-function smoothDecay(video: HTMLVideoElement, target: number) {
-  const step = () => {
-    const diff = video.playbackRate - target;
-    if (Math.abs(diff) < 0.05) {
-      video.playbackRate = target;
-      return;
-    }
-    video.playbackRate -= diff * 0.15;
-    requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
 }
