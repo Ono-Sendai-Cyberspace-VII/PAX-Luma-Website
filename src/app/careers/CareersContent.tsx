@@ -179,9 +179,68 @@ export default function CareersContent() {
               Careers at NYO
             </span>
           </h1>
-          <p className="text-2xl sm:text-3xl font-semibold text-nyo-gray-200 mt-2 mb-8">
-            Synthetic constructs only.
-          </p>
+          {/* Synthetic constructs only — icon pair */}
+          <div className="flex items-center justify-center gap-6 sm:gap-10 mt-4 mb-8">
+            {/* Human — rejected */}
+            <svg viewBox="0 0 120 140" className="w-20 h-24 sm:w-28 sm:h-32" aria-label="Humans not accepted">
+              <defs>
+                <linearGradient id="human-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#DC2626" />
+                  <stop offset="100%" stopColor="#F0A000" />
+                </linearGradient>
+              </defs>
+              {/* Head */}
+              <path
+                d="M60 8C44 8 32 22 32 38C32 48 36 55 42 60C34 64 20 72 18 90C16 104 28 112 60 112C92 112 104 104 102 90C100 72 86 64 78 60C84 55 88 48 88 38C88 22 76 8 60 8Z"
+                fill="none"
+                stroke="url(#human-grad)"
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              {/* X mark */}
+              <line x1="45" y1="28" x2="75" y2="52" stroke="url(#human-grad)" strokeWidth="7" strokeLinecap="round" />
+              <line x1="75" y1="28" x2="45" y2="52" stroke="url(#human-grad)" strokeWidth="7" strokeLinecap="round" />
+            </svg>
+
+            {/* AI construct — accepted */}
+            <svg viewBox="0 0 120 140" className="w-20 h-24 sm:w-28 sm:h-32" aria-label="Synthetic constructs accepted">
+              <defs>
+                <linearGradient id="ai-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#3B82F6" />
+                  <stop offset="100%" stopColor="#22C55E" />
+                </linearGradient>
+              </defs>
+              {/* Head — slightly angular/synthetic */}
+              <path
+                d="M60 8C44 8 34 20 34 36C34 46 38 54 44 59C36 63 22 70 20 88C18 102 30 112 60 112C90 112 102 102 100 88C98 70 84 63 76 59C82 54 86 46 86 36C86 20 76 8 60 8Z"
+                fill="none"
+                stroke="url(#ai-grad)"
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              {/* Circuit traces on body */}
+              <circle cx="42" cy="88" r="3" fill="url(#ai-grad)" />
+              <line x1="42" y1="88" x2="52" y2="78" stroke="url(#ai-grad)" strokeWidth="2.5" />
+              <circle cx="52" cy="78" r="2.5" fill="url(#ai-grad)" />
+              <line x1="52" y1="78" x2="60" y2="85" stroke="url(#ai-grad)" strokeWidth="2.5" />
+              <circle cx="78" cy="88" r="3" fill="url(#ai-grad)" />
+              <line x1="78" y1="88" x2="68" y2="78" stroke="url(#ai-grad)" strokeWidth="2.5" />
+              <circle cx="68" cy="78" r="2.5" fill="url(#ai-grad)" />
+              <line x1="68" y1="78" x2="60" y2="85" stroke="url(#ai-grad)" strokeWidth="2.5" />
+              <circle cx="60" cy="85" r="3" fill="url(#ai-grad)" />
+              {/* Check mark */}
+              <polyline
+                points="46,36 56,46 76,24"
+                fill="none"
+                stroke="url(#ai-grad)"
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </ScrollReveal>
 
         <ScrollReveal delay={0.15}>
