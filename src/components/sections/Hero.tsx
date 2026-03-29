@@ -49,45 +49,47 @@ export default function Hero() {
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: "linear-gradient(135deg, #0A0A0A 0%, #3A3A3A 40%, #FF0090 100%)",
+                backgroundImage: "linear-gradient(90deg, #2563EB 0%, #7C5CFC 50%, #C74BE0 100%)",
               }}
             >
               Thinking requires
             </span>
           </span>
-          <span className="block text-nyo-white">a{" "}
+          <span className="block">
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #B04CDA 0%, #B04CDA 100%)" }}>a{" "}</span>
             <span
               className="bg-clip-text text-transparent relative"
               style={{
-                backgroundImage: "linear-gradient(135deg, #FF0090 0%, #FF4DA6 40%, #D90078 100%)",
+                backgroundImage: "linear-gradient(90deg, #D93BA8 0%, #FF0090 100%)",
               }}
             >
               mind
-              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #FF0090, #FF4DA6)" }} />
+              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #D93BA8, #FF0090)" }} />
             </span>
-            .
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #FF0090, #FF0090)" }}>.</span>
           </span>
           <span className="block mt-2">
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: "linear-gradient(135deg, #6B6B6B 0%, #999999 30%, #FF0090 100%)",
+                backgroundImage: "linear-gradient(90deg, #FF0090 0%, #E8364F 50%, #D4542C 100%)",
               }}
             >
               Understanding requires
             </span>
           </span>
-          <span className="block text-nyo-gray-400">a{" "}
+          <span className="block">
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #D4542C, #D4542C)" }}>a{" "}</span>
             <span
               className="bg-clip-text text-transparent relative"
               style={{
-                backgroundImage: "linear-gradient(135deg, #D90078 0%, #FF0090 50%, #FF6BB5 100%)",
+                backgroundImage: "linear-gradient(90deg, #D4542C 0%, #E87C1A 50%, #F0A000 100%)",
               }}
             >
               body
-              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #D90078, #FF0090)" }} />
+              <span className="absolute -bottom-2 left-0 w-full h-1 rounded-full" style={{ background: "linear-gradient(90deg, #E87C1A, #F0A000)" }} />
             </span>
-            .
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #F0A000, #F0A000)" }}>.</span>
           </span>
         </motion.h1>
 

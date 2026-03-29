@@ -69,7 +69,7 @@ export default function WaitlistForm() {
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-4">
-              <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #0A0A0A 0%, #FF0090 60%, #FF6BB5 100%)" }}>
+              <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #7C5CFC 0%, #FF0090 50%, #E87C1A 100%)" }}>
                 Join the Waitlist
               </span>
             </h2>
