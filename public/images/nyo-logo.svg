@@ -1,31 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 200" fill="none">
-  <!--
-    NYO logo — geometric block letterforms
-    Faithful to the original mark: dense black rectangles with narrow
-    negative-space slots that define the letterforms.
-    Pink accent circle in the O.
-  -->
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 384">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #FF0090;
+      }
 
-  <!-- ===== N ===== -->
-  <rect x="0" y="0" width="180" height="200" fill="#0A0A0A"/>
-  <!-- Two narrow slots from top, ~47% depth -->
-  <rect x="53" y="0" width="8" height="94" fill="#f4f6f5"/>
-  <rect x="119" y="0" width="8" height="94" fill="#f4f6f5"/>
-  <!-- One narrow slot from bottom center, ~35% height -->
-  <rect x="82" y="130" width="16" height="70" fill="#f4f6f5"/>
+      .cls-2 {
+        fill: #0A0A0A;
+      }
 
-  <!-- ===== Y ===== -->
-  <rect x="198" y="0" width="180" height="200" fill="#0A0A0A"/>
-  <!-- Two narrow slots from top, same as N -->
-  <rect x="251" y="0" width="8" height="94" fill="#f4f6f5"/>
-  <rect x="317" y="0" width="8" height="94" fill="#f4f6f5"/>
-  <!-- Bottom cutouts: left and right blocks creating the Y crossbar + stem -->
-  <rect x="198" y="130" width="50" height="70" fill="#f4f6f5"/>
-  <rect x="328" y="130" width="50" height="70" fill="#f4f6f5"/>
+      .cls-3 {
+        fill: #0A0A0A;
+      }
 
-  <!-- ===== O ===== -->
-  <rect x="396" y="0" width="180" height="200" fill="#0A0A0A"/>
-  <!-- Pink circle with white ring, upper-right quadrant -->
-  <circle cx="504" cy="65" r="55" fill="#f4f6f5"/>
-  <circle cx="504" cy="65" r="48" fill="#FF0090"/>
+      .cls-4 {
+        fill: #f4f6f5;
+      }
+
+      .cls-5 {
+        fill: #f4f6f5;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-2" points="258 0 258 129.93 271 129.93 271 0 408 0 408 384 163 384 163 254.07 150 254.07 150 384 0 384 0 0 258 0"/>
+  <path class="cls-3" d="M794,0h366v384h-174l.02-102.53c48.77-4.83,83.79-47.21,80.66-94.88-3.13-47.56-43.34-84.49-91.13-83.44s-86.33,39.54-87.4,87.35c-1.07,47.84,36,88.7,84.86,91.27v102.24h-179.01V0Z"/>
+  <polygon class="cls-2" points="594 0 594 129.93 607 129.93 607 0 782 0 782.01 255 674 255 674 384 527 384 527 254 419.99 254 420 0 594 0"/>
+  <polygon class="cls-4" points="794 0 794 384 674 384 674 255 782.01 255 782 0 794 0"/>
+  <polygon class="cls-4" points="420 0 419.99 254 527 254 527 384 408 384 408 0 420 0"/>
+  <path class="cls-5" d="M986,384h-13v-102.24c-48.85-2.57-85.92-43.43-84.85-91.27,1.07-47.81,39.76-86.31,87.4-87.35s88,35.88,91.13,83.44c3.13,47.67-31.89,90.05-80.66,94.88l-.02,102.53ZM970,116.48c-42.76,4.53-72.26,42.93-67.48,84.31,4.78,41.35,42.14,71.17,83.48,66.79,41.65-4.41,72.03-41.87,67.57-83.6-4.38-41.1-41.11-72-83.57-67.51Z"/>
+  <rect class="cls-4" x="258" y="0" width="13" height="129.93"/>
+  <rect class="cls-4" x="594" y="0" width="13" height="129.93"/>
+  <rect class="cls-4" x="150" y="254.07" width="13" height="129.93"/>
+  <path class="cls-1" d="M970,116.48c42.47-4.49,79.19,26.41,83.57,67.51,4.45,41.73-25.92,79.19-67.57,83.6-41.34,4.37-78.7-25.44-83.48-66.79-4.78-41.38,24.72-79.79,67.48-84.31Z"/>
 </svg>
