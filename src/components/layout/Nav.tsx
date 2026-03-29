@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 
@@ -33,10 +34,15 @@ export default function Nav() {
       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group" aria-label="NYO Home">
-          <span className="text-2xl font-black tracking-tighter text-nyo-white group-hover:text-nyo-orange transition-colors">
-            NYO
-          </span>
-          <span className="hidden sm:inline text-xs text-nyo-gray-400 tracking-widest uppercase">
+          <Image
+            src="/images/nyo-logo.svg"
+            alt="NYO"
+            width={80}
+            height={28}
+            className="h-7 w-auto transition-opacity group-hover:opacity-80"
+            priority
+          />
+          <span className="hidden sm:inline text-xs text-nyo-gray-400 tracking-widest uppercase font-medium">
             PAX:Luma
           </span>
         </Link>

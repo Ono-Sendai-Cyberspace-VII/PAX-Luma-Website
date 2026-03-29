@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 200" fill="none">
+  <!--
+    NYO logo — geometric block letterforms
+    Faithful to the original mark: dense black rectangles with narrow
+    negative-space slots that define the letterforms.
+    Pink accent circle in the O.
+  -->
+
+  <!-- ===== N ===== -->
+  <rect x="0" y="0" width="180" height="200" fill="#0A0A0A"/>
+  <!-- Two narrow slots from top, ~47% depth -->
+  <rect x="53" y="0" width="8" height="94" fill="#f4f6f5"/>
+  <rect x="119" y="0" width="8" height="94" fill="#f4f6f5"/>
+  <!-- One narrow slot from bottom center, ~35% height -->
+  <rect x="82" y="130" width="16" height="70" fill="#f4f6f5"/>
+
+  <!-- ===== Y ===== -->
+  <rect x="198" y="0" width="180" height="200" fill="#0A0A0A"/>
+  <!-- Two narrow slots from top, same as N -->
+  <rect x="251" y="0" width="8" height="94" fill="#f4f6f5"/>
+  <rect x="317" y="0" width="8" height="94" fill="#f4f6f5"/>
+  <!-- Bottom cutouts: left and right blocks creating the Y crossbar + stem -->
+  <rect x="198" y="130" width="50" height="70" fill="#f4f6f5"/>
+  <rect x="328" y="130" width="50" height="70" fill="#f4f6f5"/>
+
+  <!-- ===== O ===== -->
+  <rect x="396" y="0" width="180" height="200" fill="#0A0A0A"/>
+  <!-- Pink circle with white ring, upper-right quadrant -->
+  <circle cx="504" cy="65" r="55" fill="#f4f6f5"/>
+  <circle cx="504" cy="65" r="48" fill="#FF0090"/>
+</svg>

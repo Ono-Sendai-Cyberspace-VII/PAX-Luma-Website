@@ -31,9 +31,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="inline-block">
-              <span className="text-3xl font-black tracking-tighter text-nyo-white">
-                NYO
-              </span>
+              <img
+                src="/images/nyo-logo.svg"
+                alt="NYO"
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="mt-4 text-nyo-gray-400 text-sm leading-relaxed max-w-md">
               An Ichinyo Corporation brand. Building PAX:Luma &mdash; embodied
