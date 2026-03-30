@@ -58,7 +58,7 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
       <label className="block text-sm font-medium text-nyo-gray-200 mb-2">
         Invite Code
       </label>
-      <div className="flex items-center gap-2 sm:gap-3 justify-center" onPaste={handlePaste}>
+      <div className="flex items-center gap-2 sm:gap-3 justify-start" onPaste={handlePaste}>
         {Array.from({ length: groups }).map((_, g) => (
           <div key={g} className="flex items-center gap-0.5">
             {Array.from({ length: digitsPerGroup }).map((_, d) => {
@@ -83,7 +83,7 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
           </div>
         ))}
       </div>
-      <p className="text-xs text-nyo-gray-600 mt-2 text-center">
+      <p className="text-xs text-nyo-gray-600 mt-2">
         Optional &mdash; enter your 12-character invite code if you have one
       </p>
     </div>
