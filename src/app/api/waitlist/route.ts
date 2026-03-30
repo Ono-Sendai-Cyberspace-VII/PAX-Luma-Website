@@ -38,6 +38,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: result.error }, { status: 409 });
     }
 
+    // TODO: Send verification email with result.code
+    // For now, the code is generated and stored — email integration needed
+    console.log(`[WAITLIST] Verification code for ${email}: ${result.code}`);
+
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     console.error("Waitlist error:", error);

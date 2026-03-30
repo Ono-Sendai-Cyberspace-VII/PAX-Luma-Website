@@ -4,15 +4,26 @@ import { useState, useRef, type FormEvent, type KeyboardEvent, type ClipboardEve
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ScrollReveal from "@/components/motion/ScrollReveal";
-import { CheckCircle, Sparkles } from "lucide-react";
+import { CheckCircle, Sparkles, Mail } from "lucide-react";
 
-function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: string) => void }) {
+/** Reusable digit-box input */
+function CodeInput({
+  value,
+  onChange,
+  groups,
+  digitsPerGroup,
+  label,
+  helpText,
+}: {
+  value: string;
+  onChange: (code: string) => void;
+  groups: number;
+  digitsPerGroup: number;
+  label: string;
+  helpText?: string;
+}) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const groups = 3;
-  const digitsPerGroup = 4;
   const total = groups * digitsPerGroup;
-
-  // Split value into individual characters
   const chars = value.toUpperCase().padEnd(total, "").split("").slice(0, total);
 
   function handleInput(index: number, char: string) {
@@ -20,7 +31,6 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
     const newChars = [...chars];
     newChars[index] = char.toUpperCase();
     onChange(newChars.join(""));
-    // Advance to next
     if (index < total - 1) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -56,7 +66,7 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
   return (
     <div>
       <label className="block text-sm font-medium text-nyo-gray-200 mb-2">
-        Invite Code
+        {label}
       </label>
       <div className="flex items-center gap-2 sm:gap-3 justify-start" onPaste={handlePaste}>
         {Array.from({ length: groups }).map((_, g) => (
@@ -73,7 +83,7 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
                   onChange={(e) => handleInput(idx, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(idx, e)}
                   className="w-7 h-9 sm:w-9 sm:h-11 text-center text-sm sm:text-lg font-mono font-semibold rounded-md sm:rounded-lg bg-nyo-gray-800/60 border border-nyo-gray-600/30 text-nyo-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-nyo-orange/50 focus:border-nyo-orange/50 hover:border-nyo-gray-400/50"
-                  aria-label={`Invite code digit ${idx + 1}`}
+                  aria-label={`${label} digit ${idx + 1}`}
                 />
               );
             })}
@@ -83,18 +93,22 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
           </div>
         ))}
       </div>
-      <p className="text-xs text-nyo-gray-600 mt-2">
-        Optional &mdash; enter your 12-character invite code for preferential positioning
-      </p>
+      {helpText && (
+        <p className="text-xs text-nyo-gray-600 mt-2">{helpText}</p>
+      )}
     </div>
   );
 }
 
+type FormStep = "form" | "verify" | "confirmed";
+
 export default function WaitlistForm() {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [step, setStep] = useState<FormStep>("form");
   const [error, setError] = useState("");
   const [inviteCode, setInviteCode] = useState("");
+  const [verifyCode, setVerifyCode] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -128,10 +142,61 @@ export default function WaitlistForm() {
         throw new Error(body.error || "Something went wrong.");
       }
 
-      setSuccess(true);
-      form.reset();
+      setUserEmail(data.email);
+      setStep("verify");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleVerify() {
+    const code = verifyCode.replace(/[^0-9]/g, "");
+    if (code.length !== 6) {
+      setError("Please enter the full 6-digit verification code.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/waitlist/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail, code }),
+      });
+
+      if (!res.ok) {
+        const body = await res.json();
+        throw new Error(body.error || "Invalid verification code.");
+      }
+
+      setStep("confirmed");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Verification failed.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleResend() {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/waitlist/resend", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail }),
+      });
+      if (!res.ok) {
+        const body = await res.json();
+        throw new Error(body.error || "Could not resend.");
+      }
+      setError(""); // Clear any existing error
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not resend code.");
     } finally {
       setLoading(false);
     }
@@ -164,7 +229,8 @@ export default function WaitlistForm() {
           </div>
         </ScrollReveal>
 
-        {success ? (
+        {/* Step 3: Confirmed */}
+        {step === "confirmed" && (
           <ScrollReveal direction="none">
             <div className="text-center py-12 px-8 rounded-3xl border border-nyo-orange/30 bg-nyo-orange/5">
               <CheckCircle size={48} className="text-nyo-orange mx-auto mb-4" />
@@ -172,11 +238,71 @@ export default function WaitlistForm() {
                 You&apos;re on the list!
               </h3>
               <p className="text-nyo-gray-400">
-                We&apos;ll be in touch when PAX:Luma is ready for you.
+                Your email has been verified. We&apos;ll be in touch when PAX:Luma is ready for you.
               </p>
             </div>
           </ScrollReveal>
-        ) : (
+        )}
+
+        {/* Step 2: Verify email */}
+        {step === "verify" && (
+          <ScrollReveal direction="none">
+            <div className="rounded-3xl border border-nyo-gray-800/60 bg-nyo-gray-900/40 backdrop-blur-sm p-8 sm:p-10">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 rounded-2xl bg-nyo-orange/10 flex items-center justify-center mx-auto mb-4">
+                  <Mail size={28} className="text-nyo-orange" />
+                </div>
+                <h3 className="text-2xl font-bold text-nyo-white mb-2">
+                  Confirm your email
+                </h3>
+                <p className="text-nyo-gray-400">
+                  To secure your position on the list, enter the verification code
+                  we sent to <span className="text-nyo-white font-medium">{userEmail}</span>
+                </p>
+              </div>
+
+              <div className="flex justify-center mb-6">
+                <CodeInput
+                  value={verifyCode}
+                  onChange={setVerifyCode}
+                  groups={2}
+                  digitsPerGroup={3}
+                  label="Verification Code"
+                />
+              </div>
+
+              {error && (
+                <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2 mb-4" role="alert">
+                  {error}
+                </p>
+              )}
+
+              <Button
+                type="button"
+                loading={loading}
+                size="lg"
+                className="w-full"
+                onClick={handleVerify}
+              >
+                {loading ? "Verifying..." : "Verify & Secure My Spot"}
+              </Button>
+
+              <div className="text-center mt-4">
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  disabled={loading}
+                  className="text-sm text-nyo-gray-400 hover:text-nyo-orange transition-colors disabled:opacity-50"
+                >
+                  Didn&apos;t receive it? Resend code
+                </button>
+              </div>
+            </div>
+          </ScrollReveal>
+        )}
+
+        {/* Step 1: Registration form */}
+        {step === "form" && (
           <ScrollReveal delay={0.1}>
             <form
               onSubmit={handleSubmit}
@@ -199,7 +325,14 @@ export default function WaitlistForm() {
                   autoComplete="email"
                 />
               </div>
-              <InviteCodeInput value={inviteCode} onChange={setInviteCode} />
+              <CodeInput
+                value={inviteCode}
+                onChange={setInviteCode}
+                groups={3}
+                digitsPerGroup={4}
+                label="Invite Code"
+                helpText="Optional — enter your 12-character invite code for preferential positioning"
+              />
               <div>
                 <label
                   htmlFor="excitement"
