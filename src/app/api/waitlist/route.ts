@@ -4,7 +4,7 @@ import { addToWaitlist } from "@/lib/waitlist";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, company, role, excitement } = body;
+    const { name, email, invite_code, excitement } = body;
 
     if (!name || !email) {
       return NextResponse.json(
@@ -29,8 +29,7 @@ export async function POST(request: NextRequest) {
     const result = addToWaitlist({
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      company: company?.trim(),
-      role: role?.trim(),
+      invite_code: invite_code?.trim(),
       excitement: excitement?.trim(),
       ip_address: ip,
     });

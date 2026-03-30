@@ -18,8 +18,7 @@ function getDb() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       email TEXT NOT NULL UNIQUE,
-      company TEXT,
-      role TEXT,
+      invite_code TEXT,
       excitement TEXT,
       created_at TEXT DEFAULT (datetime('now')),
       ip_address TEXT
@@ -32,8 +31,7 @@ function getDb() {
 export interface WaitlistEntry {
   name: string;
   email: string;
-  company?: string;
-  role?: string;
+  invite_code?: string;
   excitement?: string;
   ip_address?: string;
 }
@@ -42,14 +40,13 @@ export function addToWaitlist(entry: WaitlistEntry) {
   const db = getDb();
   try {
     const stmt = db.prepare(`
-      INSERT INTO waitlist (name, email, company, role, excitement, ip_address)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO waitlist (name, email, invite_code, excitement, ip_address)
+      VALUES (?, ?, ?, ?, ?)
     `);
     stmt.run(
       entry.name,
       entry.email,
-      entry.company || null,
-      entry.role || null,
+      entry.invite_code || null,
       entry.excitement || null,
       entry.ip_address || null
     );

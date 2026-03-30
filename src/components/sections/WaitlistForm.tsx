@@ -1,15 +1,100 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useRef, type FormEvent, type KeyboardEvent, type ClipboardEvent } from "react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import { CheckCircle, Sparkles } from "lucide-react";
 
+function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: string) => void }) {
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const groups = 4;
+  const digitsPerGroup = 4;
+  const total = groups * digitsPerGroup;
+
+  // Split value into individual characters
+  const chars = value.toUpperCase().padEnd(total, "").split("").slice(0, total);
+
+  function handleInput(index: number, char: string) {
+    if (!/^[A-Za-z0-9]$/.test(char)) return;
+    const newChars = [...chars];
+    newChars[index] = char.toUpperCase();
+    onChange(newChars.join(""));
+    // Advance to next
+    if (index < total - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  }
+
+  function handleKeyDown(index: number, e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const newChars = [...chars];
+      if (chars[index] && chars[index] !== " ") {
+        newChars[index] = "";
+        onChange(newChars.join(""));
+      } else if (index > 0) {
+        newChars[index - 1] = "";
+        onChange(newChars.join(""));
+        inputRefs.current[index - 1]?.focus();
+      }
+    } else if (e.key === "ArrowLeft" && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    } else if (e.key === "ArrowRight" && index < total - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  }
+
+  function handlePaste(e: ClipboardEvent) {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/[^A-Za-z0-9]/g, "").slice(0, total);
+    onChange(pasted.toUpperCase());
+    const focusIdx = Math.min(pasted.length, total - 1);
+    setTimeout(() => inputRefs.current[focusIdx]?.focus(), 0);
+  }
+
+  return (
+    <div>
+      <label className="block text-sm font-medium text-nyo-gray-200 mb-2">
+        Invite Code
+      </label>
+      <div className="flex items-center gap-2 sm:gap-3 justify-center" onPaste={handlePaste}>
+        {Array.from({ length: groups }).map((_, g) => (
+          <div key={g} className="flex items-center gap-0.5">
+            {Array.from({ length: digitsPerGroup }).map((_, d) => {
+              const idx = g * digitsPerGroup + d;
+              return (
+                <input
+                  key={idx}
+                  ref={(el) => { inputRefs.current[idx] = el; }}
+                  type="text"
+                  maxLength={1}
+                  value={chars[idx]?.trim() || ""}
+                  onChange={(e) => handleInput(idx, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(idx, e)}
+                  className="w-7 h-9 sm:w-9 sm:h-11 text-center text-sm sm:text-lg font-mono font-semibold rounded-md sm:rounded-lg bg-nyo-gray-800/60 border border-nyo-gray-600/30 text-nyo-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-nyo-orange/50 focus:border-nyo-orange/50 hover:border-nyo-gray-400/50"
+                  aria-label={`Invite code digit ${idx + 1}`}
+                />
+              );
+            })}
+            {g < groups - 1 && (
+              <span className="text-nyo-gray-600 font-mono mx-1 select-none">&ndash;</span>
+            )}
+          </div>
+        ))}
+      </div>
+      <p className="text-xs text-nyo-gray-600 mt-2 text-center">
+        Optional &mdash; enter your 16-character invite code if you have one
+      </p>
+    </div>
+  );
+}
+
 export default function WaitlistForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,13 +106,12 @@ export default function WaitlistForm() {
     const data = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
-      company: formData.get("company") as string,
-      role: formData.get("role") as string,
+      invite_code: inviteCode.replace(/[^A-Za-z0-9]/g, "") || undefined,
       excitement: formData.get("excitement") as string,
     };
 
     if (!data.name || !data.email) {
-      setError("Name and email are required.");
+      setError("Full name and email are required.");
       setLoading(false);
       return;
     }
@@ -101,8 +185,8 @@ export default function WaitlistForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <Input
                   name="name"
-                  label="Name *"
-                  placeholder="Your name"
+                  label="Full Name *"
+                  placeholder="Your full name"
                   required
                   autoComplete="name"
                 />
@@ -115,20 +199,7 @@ export default function WaitlistForm() {
                   autoComplete="email"
                 />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <Input
-                  name="company"
-                  label="Company"
-                  placeholder="Optional"
-                  autoComplete="organization"
-                />
-                <Input
-                  name="role"
-                  label="Role"
-                  placeholder="Optional"
-                  autoComplete="organization-title"
-                />
-              </div>
+              <InviteCodeInput value={inviteCode} onChange={setInviteCode} />
               <div>
                 <label
                   htmlFor="excitement"
