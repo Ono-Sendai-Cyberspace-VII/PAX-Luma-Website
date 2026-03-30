@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addToWaitlist } from "@/lib/waitlist";
+import { sendVerificationEmail } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,9 +39,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: result.error }, { status: 409 });
     }
 
-    // TODO: Send verification email with result.code
-    // For now, the code is generated and stored — email integration needed
-    console.log(`[WAITLIST] Verification code for ${email}: ${result.code}`);
+    // Send verification email
+    if (result.code) {
+      const emailResult = await sendVerificationEmail(
+        email.trim().toLowerCase(),
+        result.code,
+        name.trim()
+      );
+      if (!emailResult.success) {
+        console.error(`[WAITLIST] Email send failed for ${email}:`, emailResult.error);
+      }
+    }
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
