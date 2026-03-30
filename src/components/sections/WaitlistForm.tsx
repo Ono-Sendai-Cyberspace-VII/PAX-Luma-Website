@@ -8,7 +8,7 @@ import { CheckCircle, Sparkles } from "lucide-react";
 
 function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: string) => void }) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const groups = 4;
+  const groups = 3;
   const digitsPerGroup = 4;
   const total = groups * digitsPerGroup;
 
@@ -84,7 +84,7 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
         ))}
       </div>
       <p className="text-xs text-nyo-gray-600 mt-2 text-center">
-        Optional &mdash; enter your 16-character invite code if you have one
+        Optional &mdash; enter your 12-character invite code if you have one
       </p>
     </div>
   );
