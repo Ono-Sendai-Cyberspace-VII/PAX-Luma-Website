@@ -84,7 +84,7 @@ function InviteCodeInput({ value, onChange }: { value: string; onChange: (code: 
         ))}
       </div>
       <p className="text-xs text-nyo-gray-600 mt-2">
-        Optional &mdash; enter your 12-character invite code if you have one
+        Optional &mdash; enter your 12-character invite code for preferential positioning
       </p>
     </div>
   );
