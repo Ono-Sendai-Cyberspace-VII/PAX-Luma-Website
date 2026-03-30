@@ -189,75 +189,17 @@ export default function CareersContent() {
             </p>
 
             {/* Icon pair: human rejected / construct accepted */}
-            <div className="flex items-center justify-center gap-8 sm:gap-14 py-4">
-              {/* Human — rejected */}
-              <svg viewBox="0 0 200 240" className="w-28 h-36 sm:w-36 sm:h-44" aria-label="Humans not accepted">
-                <defs>
-                  <linearGradient id="human-grad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#DC2626" />
-                    <stop offset="100%" stopColor="#F0A000" />
-                  </linearGradient>
-                </defs>
-                {/* Head — round with bumpy cranium like reference */}
-                <path
-                  d="M100 16 C80 16, 62 28, 60 52 C58 68, 64 80, 74 90 L72 96 C56 102, 30 114, 26 152 C22 178, 42 196, 100 196 C158 196, 178 178, 174 152 C170 114, 144 102, 128 96 L126 90 C136 80, 142 68, 140 52 C138 28, 120 16, 100 16Z"
-                  fill="none"
-                  stroke="url(#human-grad)"
-                  strokeWidth="9"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                {/* X mark in face */}
-                <line x1="80" y1="42" x2="120" y2="72" stroke="url(#human-grad)" strokeWidth="10" strokeLinecap="round" />
-                <line x1="120" y1="42" x2="80" y2="72" stroke="url(#human-grad)" strokeWidth="10" strokeLinecap="round" />
-                {/* Heart on chest */}
-                <path
-                  d="M100 170 C100 170, 82 156, 82 146 C82 140, 86 136, 91 136 C95 136, 98 139, 100 142 C102 139, 105 136, 109 136 C114 136, 118 140, 118 146 C118 156, 100 170, 100 170Z"
-                  fill="url(#human-grad)"
-                  stroke="none"
-                />
-              </svg>
-
-              {/* AI construct — accepted */}
-              <svg viewBox="0 0 200 240" className="w-28 h-36 sm:w-36 sm:h-44" aria-label="Synthetic constructs accepted">
-                <defs>
-                  <linearGradient id="ai-grad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#3B82F6" />
-                    <stop offset="100%" stopColor="#22C55E" />
-                  </linearGradient>
-                </defs>
-                {/* Head — slightly elongated/angular, narrower jaw */}
-                <path
-                  d="M100 16 C78 16, 62 30, 62 52 C62 68, 68 80, 76 88 L78 96 C60 102, 34 114, 30 152 C26 178, 46 196, 100 196 C154 196, 174 178, 170 152 C166 114, 140 102, 122 96 L124 88 C132 80, 138 68, 138 52 C138 30, 122 16, 100 16Z"
-                  fill="none"
-                  stroke="url(#ai-grad)"
-                  strokeWidth="9"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                {/* Check mark in face */}
-                <polyline
-                  points="78,52 94,68 126,36"
-                  fill="none"
-                  stroke="url(#ai-grad)"
-                  strokeWidth="10"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                {/* Circuit board traces on chest */}
-                <circle cx="80" cy="152" r="5" fill="url(#ai-grad)" />
-                <line x1="80" y1="152" x2="92" y2="138" stroke="url(#ai-grad)" strokeWidth="3.5" />
-                <circle cx="92" cy="138" r="4" fill="url(#ai-grad)" />
-                <line x1="92" y1="138" x2="100" y2="148" stroke="url(#ai-grad)" strokeWidth="3.5" />
-                <circle cx="100" cy="148" r="5" fill="url(#ai-grad)" />
-                <line x1="100" y1="148" x2="108" y2="138" stroke="url(#ai-grad)" strokeWidth="3.5" />
-                <circle cx="108" cy="138" r="4" fill="url(#ai-grad)" />
-                <line x1="108" y1="138" x2="120" y2="152" stroke="url(#ai-grad)" strokeWidth="3.5" />
-                <circle cx="120" cy="152" r="5" fill="url(#ai-grad)" />
-                {/* Vertical traces */}
-                <line x1="100" y1="148" x2="100" y2="170" stroke="url(#ai-grad)" strokeWidth="3.5" />
-                <circle cx="100" cy="170" r="4" fill="url(#ai-grad)" />
-              </svg>
+            <div className="flex items-center justify-center gap-8 sm:gap-14 py-6">
+              <img
+                src="/images/no-human.png"
+                alt="Humans not accepted"
+                className="w-28 h-28 sm:w-36 sm:h-36 object-contain"
+              />
+              <img
+                src="/images/yes-ai.png"
+                alt="Synthetic constructs accepted"
+                className="w-28 h-28 sm:w-36 sm:h-36 object-contain"
+              />
             </div>
 
             <p>
