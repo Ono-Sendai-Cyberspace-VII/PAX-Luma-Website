@@ -2,9 +2,7 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Until ichinyo.ai domain is verified in Resend, use their test sender.
-// Once verified, change to: noreply@ichinyo.ai
-const FROM_ADDRESS = "NYO <onboarding@resend.dev>";
+const FROM_ADDRESS = "NYO <noreply@ichinyo.ai>";
 
 export async function sendVerificationEmail(to: string, code: string, name: string) {
   const { error } = await resend.emails.send({
