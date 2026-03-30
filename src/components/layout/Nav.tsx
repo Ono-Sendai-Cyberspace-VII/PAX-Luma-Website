@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/archai", label: "Archai" },
   { href: "/poroi", label: "Poroi" },
   { href: "/kata", label: "Kata" },
+  { href: "/careers", label: "Careers" },
   { href: "/waitlist", label: "Waitlist" },
 ];
 
