@@ -111,7 +111,7 @@ export default function AboutContent() {
         <ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <InfoCard label="Company" title="What We Are">
-              Ichinyo Corporation, a Delaware Public Benefit Corporation.
+              An agent harness innovator, building AI from first principles.
             </InfoCard>
             <InfoCard label="Product" title="What We Build">
               PAX:Luma &mdash; a personal assistant architecture built around

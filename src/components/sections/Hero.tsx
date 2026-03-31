@@ -102,7 +102,7 @@ export default function Hero() {
         >
           <span className="text-nyo-white font-semibold">PAX:Luma</span> &mdash; Embodied
           synthetic intelligence by{" "}
-          <span className="text-nyo-white font-semibold">NYO</span>, an Ichinyo
+          <span className="text-nyo-white font-semibold">NYO</span>, a division of Ichinyo
           Corporation brand.
         </motion.p>
 

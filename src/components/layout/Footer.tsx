@@ -38,7 +38,7 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-4 text-nyo-gray-400 text-sm leading-relaxed max-w-md">
-              An Ichinyo Corporation brand. Building PAX:Luma &mdash; embodied
+              A division of Ichinyo Corporation. Building PAX:Luma &mdash; embodied
               synthetic intelligence grounded in first principles.
             </p>
             <p className="mt-3 text-nyo-gray-600 text-xs font-mono tracking-wider">

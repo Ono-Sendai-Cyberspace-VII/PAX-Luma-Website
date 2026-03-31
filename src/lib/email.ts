@@ -44,7 +44,7 @@ export async function sendVerificationEmail(to: string, code: string, name: stri
         <hr style="border: none; border-top: 1px solid #E0E0E0; margin: 32px 0;" />
 
         <p style="font-size: 12px; color: #999999; text-align: center; line-height: 1.5;">
-          NYO &mdash; An Ichinyo Corporation Brand<br />
+          NYO &mdash; A Division of Ichinyo Corporation<br />
           Embodied synthetic intelligence grounded in first principles.
         </p>
       </div>
