@@ -10,7 +10,7 @@ const footerLinks = {
   ],
   company: [
     { href: "/login", label: "Sign In" },
-    { href: "#", label: "About NYO" },
+    { href: "/about", label: "About NYO" },
     { href: "/careers", label: "Careers" },
     { href: "#", label: "Contact" },
   ],
