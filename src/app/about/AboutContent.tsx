@@ -296,10 +296,14 @@ export default function AboutContent() {
                 Niantic Spatial and serving as President of Product and
                 Technology at DocuSign, Suh spent roughly two decades at IBM,
                 where she was a key figure in the early commercialization of big
-                data and machine learning. For Ichinyo, that chapter matters
-                because it sharpened Cameron&rsquo;s conviction that the future
-                belongs to systems that can move from narrow utility to broader
-                cognitive leverage inside real workflows.
+                data and machine learning. Her leadership included roles tied to
+                IBM&rsquo;s Big Data business and Watson-era workplace products,
+                including Watson Work and Collaboration Solutions, where she
+                helped infuse cognitive computing and analytics into enterprise
+                applications. For Ichinyo, that chapter matters because it
+                sharpened Cameron&rsquo;s conviction that the future belongs to
+                systems that can move from narrow utility to broader cognitive
+                leverage inside real workflows.
               </p>
             </div>
           </ScrollReveal>
@@ -312,14 +316,21 @@ export default function AboutContent() {
                   Yahoo &amp; GoDaddy
                 </h3>
               </div>
-              <p className="text-nyo-gray-300 leading-relaxed">
+              <p className="text-nyo-gray-300 leading-relaxed mb-4">
                 Earlier, at Yahoo, Cameron worked for Blake Irving, another
                 formative technology leader whose career spanned several of the
                 platforms and infrastructure shifts that shaped modern digital
                 work. Irving played major roles in communication platforms at
                 Microsoft, in cloud infrastructure at scale, and later in
                 helping GoDaddy evolve into a more sophisticated platform for
-                entrepreneurs. Exposure to that leadership orbit reinforced
+                entrepreneurs.
+              </p>
+              <p className="text-nyo-gray-300 leading-relaxed">
+                Just as important were the conversations Cameron had with Irving
+                about where work itself was headed: many of Blake&rsquo;s very
+                public predictions about the future of work now read as
+                distinctly prophetic, and a striking number of them are plainly
+                coming true. Exposure to that leadership orbit reinforced
                 Cameron&rsquo;s instinct for technology businesses that begin as
                 tools, then expand into systems with much larger operating
                 significance.
@@ -352,6 +363,18 @@ export default function AboutContent() {
             </div>
           </ScrollReveal>
         </div>
+      </section>
+
+      {/* Embodiment closing statement */}
+      <section className="max-w-3xl mx-auto px-6 mb-20">
+        <ScrollReveal>
+          <p className="text-xl text-nyo-gray-300 leading-relaxed italic">
+            Mind and body as one. That is the meaning behind Ichinyo&rsquo;s
+            framing of PAX:Luma: not intelligence as detached fluency, but
+            intelligence as understanding formed through contact, memory,
+            revision, and consequence.
+          </p>
+        </ScrollReveal>
       </section>
 
       {/* Divider */}
