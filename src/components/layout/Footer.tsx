@@ -108,12 +108,12 @@ export default function Footer() {
             Public Benefit Corporation. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-xs text-nyo-gray-600 hover:text-nyo-gray-400 transition-colors">
+            <Link href="/privacy" className="text-xs text-nyo-gray-600 hover:text-nyo-gray-400 transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-xs text-nyo-gray-600 hover:text-nyo-gray-400 transition-colors">
+            </Link>
+            <Link href="/terms" className="text-xs text-nyo-gray-600 hover:text-nyo-gray-400 transition-colors">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </div>
