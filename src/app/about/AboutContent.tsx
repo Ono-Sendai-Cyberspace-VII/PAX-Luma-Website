@@ -241,7 +241,7 @@ export default function AboutContent() {
           </h2>
           <div className="space-y-5 text-nyo-gray-300 leading-relaxed text-lg">
             <p>
-              Ichinyo was founded by Cameron Scott, a technology and business
+              Ichinyo was founded by Cameron Scott, a technology and brand
               leader whose career has been shaped by close work with
               consequential technology leaders throughout his long career. His
               background spans Microsoft, Yahoo, web hosting giant GoDaddy, and
@@ -313,7 +313,7 @@ export default function AboutContent() {
               <div className="flex items-center gap-3 mb-4">
                 <Briefcase className="w-5 h-5 text-nyo-orange" />
                 <h3 className="text-xl font-bold text-nyo-white">
-                  Yahoo &amp; GoDaddy
+                  Yahoo
                 </h3>
               </div>
               <p className="text-nyo-gray-300 leading-relaxed mb-4">
