@@ -43,9 +43,6 @@ export default function Nav() {
             className="h-7 w-auto transition-opacity group-hover:opacity-80"
             priority
           />
-          <span className="hidden sm:inline text-xs text-nyo-gray-400 tracking-widest uppercase font-medium">
-            PAX:Luma
-          </span>
         </Link>
 
         {/* Desktop Nav */}
