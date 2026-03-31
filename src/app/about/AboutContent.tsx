@@ -241,12 +241,12 @@ export default function AboutContent() {
           </h2>
           <div className="space-y-5 text-nyo-gray-300 leading-relaxed text-lg">
             <p>
-              Ichinyo was founded by Cameron Scott, a communications and brand
-              strategist whose career has been shaped by close work with
-              consequential technology leaders. His background spans Microsoft,
-              Yahoo, GoDaddy, and DocuSign, with a particular depth around
-              translating complex technical change into strategy, narrative, and
-              operating clarity.
+              Ichinyo was founded by Cameron Scott, a technology and business
+              leader whose career has been shaped by close work with
+              consequential technology leaders throughout his long career. His
+              background spans Microsoft, Yahoo, web hosting giant GoDaddy, and
+              DocuSign, with a particular depth around translating complex
+              technical change into strategy, narrative, and operating clarity.
             </p>
           </div>
         </ScrollReveal>
